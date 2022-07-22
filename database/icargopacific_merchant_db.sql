@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 20, 2022 at 07:02 AM
--- Server version: 10.4.19-MariaDB
--- PHP Version: 8.0.6
+-- Generation Time: Jul 22, 2022 at 04:21 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `booking` (
   `order_number` int(11) NOT NULL,
-  `merchant_id` int(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `sender_location` varchar(255) NOT NULL,
   `sender_contact` varchar(255) NOT NULL,
   `recipient_location` varchar(255) NOT NULL,
@@ -122,10 +122,20 @@ CREATE TABLE `merchant` (
   `password` varchar(100) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
-  `profile_image` varchar(255) DEFAULT NULL,
   `contact_number` varchar(255) NOT NULL,
   `name_of_business` varchar(255) NOT NULL,
   `about` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `other_details`
+--
+
+CREATE TABLE `other_details` (
+  `orderID` int(11) NOT NULL,
+  `remarks` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -149,6 +159,36 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `price_input`
+--
+
+CREATE TABLE `price_input` (
+  `orderID` int(11) NOT NULL,
+  `sender_name` varchar(255) NOT NULL,
+  `sender_number` varchar(255) NOT NULL,
+  `recipient_name` varchar(255) NOT NULL,
+  `recipient_number` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `routes_input`
+--
+
+CREATE TABLE `routes_input` (
+  `orderID` int(255) NOT NULL,
+  `senderloc` varchar(255) NOT NULL,
+  `recipientloc` varchar(255) NOT NULL,
+  `length` int(255) NOT NULL,
+  `width` int(255) NOT NULL,
+  `height` int(255) NOT NULL,
+  `weight` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `vehicle`
 --
 
@@ -167,7 +207,7 @@ INSERT INTO `vehicle` (`id`, `vehicle_type`) VALUES
 (3, 'Bulk Transportation'),
 (4, 'Tanker'),
 (5, 'Container'),
-(6, 'Closed van');
+(6, 'Closed Van');
 
 -- --------------------------------------------------------
 
@@ -188,12 +228,11 @@ INSERT INTO `verify_merchant` (`id`, `proof_of_identification`) VALUES
 (1, 'Philippine Passport'),
 (2, 'Social Security System (SSS) Card'),
 (3, 'Unified Multi-Purpose Identification (UMID) Card'),
-(4, 'Drivers License'),
+(4, 'Driver\'s License'),
 (5, 'PhilHealth ID'),
 (6, 'Professional Regulatory Commission (PRC) ID'),
 (7, 'Philippine Postal ID'),
-(8, 'Taxpayer Identification Number'),
-(9, 'PhilSys ID');
+(8, 'Taxpayer Identification Number');
 
 --
 -- Indexes for dumped tables
@@ -236,12 +275,30 @@ ALTER TABLE `merchant`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `other_details`
+--
+ALTER TABLE `other_details`
+  ADD PRIMARY KEY (`orderID`);
+
+--
 -- Indexes for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
+
+--
+-- Indexes for table `price_input`
+--
+ALTER TABLE `price_input`
+  ADD PRIMARY KEY (`orderID`);
+
+--
+-- Indexes for table `routes_input`
+--
+ALTER TABLE `routes_input`
+  ADD PRIMARY KEY (`orderID`);
 
 --
 -- Indexes for table `vehicle`
@@ -263,7 +320,7 @@ ALTER TABLE `verify_merchant`
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `order_number` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_number` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `cargo`
@@ -293,13 +350,31 @@ ALTER TABLE `driver`
 -- AUTO_INCREMENT for table `merchant`
 --
 ALTER TABLE `merchant`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `other_details`
+--
+ALTER TABLE `other_details`
+  MODIFY `orderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT for table `price_input`
+--
+ALTER TABLE `price_input`
+  MODIFY `orderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `routes_input`
+--
+ALTER TABLE `routes_input`
+  MODIFY `orderID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `vehicle`
@@ -311,7 +386,7 @@ ALTER TABLE `vehicle`
 -- AUTO_INCREMENT for table `verify_merchant`
 --
 ALTER TABLE `verify_merchant`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
