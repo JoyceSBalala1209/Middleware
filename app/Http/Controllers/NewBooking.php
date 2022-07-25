@@ -22,8 +22,8 @@ class NewBooking extends Controller
         $validated = Validator::make($request->all(), [
             'senderloc' => 'required',
             'recipientloc' => 'required',  
-            // 'wholevehicle' => 'required',
-            // 'cargotype' => 'required',
+            'vehicletype' => 'required',
+            'cargotype' => 'required',
             'length' => 'required|numeric',
             'width' => 'required|numeric',
             'height' => 'required|numeric',
@@ -43,8 +43,8 @@ class NewBooking extends Controller
             
                 'senderloc' => $request->senderloc,
                 'recipientloc' => $request->recipientloc,   
-                // 'wholevehicle' => $request->wholevehicle,
-                // 'cargotype' => $request->cargotype,
+                'wholevehicle' => $request->vehicletype,
+                'cargotype' => $request->cargotype,
                 'length' => $request->length,
                 'width' => $request->width,
                 'height' => $request->height,

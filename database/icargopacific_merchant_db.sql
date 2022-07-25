@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 22, 2022 at 04:21 PM
+-- Generation Time: Jul 25, 2022 at 04:47 AM
 -- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.29
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -180,6 +180,8 @@ CREATE TABLE `routes_input` (
   `orderID` int(255) NOT NULL,
   `senderloc` varchar(255) NOT NULL,
   `recipientloc` varchar(255) NOT NULL,
+  `wholevehicle` varchar(255) NOT NULL,
+  `cargotype` varchar(255) NOT NULL,
   `length` int(255) NOT NULL,
   `width` int(255) NOT NULL,
   `height` int(255) NOT NULL,
@@ -356,7 +358,7 @@ ALTER TABLE `merchant`
 -- AUTO_INCREMENT for table `other_details`
 --
 ALTER TABLE `other_details`
-  MODIFY `orderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `orderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -368,13 +370,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `price_input`
 --
 ALTER TABLE `price_input`
-  MODIFY `orderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `orderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `routes_input`
 --
 ALTER TABLE `routes_input`
-  MODIFY `orderID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `orderID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `vehicle`
